@@ -37,9 +37,25 @@ const bullet = document.querySelectorAll(".nav").forEach((bullet, bulletIndex) =
 	});
 });
 
+let pause = true;
+
+const pauseButton = document.querySelector(".pauseButton");
+pauseButton.addEventListener("click", () => {
+	if (pause) {
+		pauseButton.classList.toggle("active");
+		pause = false;
+	} else {
+		pause = true;
+		pauseButton.classList.toggle("active");
+		setTimeout(automaticSlideChanger, 4000);
+	}
+});
+
 function automaticSlideChanger() {
-	changeSlide(currentSlide + 1);
-	setTimeout(automaticSlideChanger, 4000);
+	if (pause) {
+		changeSlide(currentSlide + 1);
+		setTimeout(automaticSlideChanger, 4000);
+	}
 }
 window.onload = function () {
 	setTimeout(automaticSlideChanger, 5000);
